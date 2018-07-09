@@ -1,0 +1,19 @@
+syntax = "proto3";
+package versions;
+
+import "google/api/annotations.proto";
+
+
+message Download {
+
+  string link = 1; 
+
+  string format = 2; 
+
+  string protocol = 3;
+
+  string os = 4;
+
+  string arch = 5;  
+
+}

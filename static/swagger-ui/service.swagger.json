@@ -1,0 +1,1080 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "protos/service.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "summary": "Get service version and build info",
+        "operationId": "Info",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsServiceInfoResponse"
+            }
+          }
+        },
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/applications": {
+      "get": {
+        "summary": "Get applications list",
+        "operationId": "GetApplications",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsApplicationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "post": {
+        "summary": "Create new application",
+        "operationId": "CreateApplication",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsApplicationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionsApplication"
+            }
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/applications/{application_id}": {
+      "get": {
+        "summary": "Get application details",
+        "operationId": "GetApplication",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsApplicationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "delete": {
+        "summary": "Delete application by ID",
+        "operationId": "DeleteApplication",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "put": {
+        "summary": "Update existing application",
+        "operationId": "UpdateApplication",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsApplicationResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionsApplicationRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/applications/{application_id}/versions": {
+      "get": {
+        "summary": "Get applications versions",
+        "operationId": "GetVersions",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.major",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.minor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.revision",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.stable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "version.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/applications/{application_id}/versions/latest": {
+      "get": {
+        "summary": "Get applications latest version",
+        "operationId": "GetLatestVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.major",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.minor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.revision",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.stable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "version.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/versions": {
+      "post": {
+        "summary": "Create new version",
+        "operationId": "CreateVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionsVersion"
+            }
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
+    "/v1/versions/{version_id}": {
+      "get": {
+        "summary": "Get version by ID",
+        "operationId": "GetVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.major",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.minor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.revision",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.stable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "version.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "delete": {
+        "summary": "Delete version",
+        "operationId": "DeleteVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "version.major",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.minor",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.revision",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.stable",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "version.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "version.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "application_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "put": {
+        "summary": "Update existing version",
+        "operationId": "UpdateVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsVersionResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionsVersionRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    },
+    "versionsApplication": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "versionsApplicationRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "application_id": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/versionsApplication"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "versionsApplicationResponse": {
+      "type": "object",
+      "properties": {
+        "application": {
+          "$ref": "#/definitions/versionsApplication"
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versionsApplication"
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "versionsDownload": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "os": {
+          "type": "string"
+        },
+        "arch": {
+          "type": "string"
+        }
+      }
+    },
+    "versionsServiceInfoResponse": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "build": {
+          "type": "string"
+        },
+        "built_at": {
+          "type": "string"
+        }
+      }
+    },
+    "versionsVersion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "major": {
+          "type": "string"
+        },
+        "minor": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/versionsApplication"
+        },
+        "application_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "stable": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "downloads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versionsDownload"
+          }
+        }
+      }
+    },
+    "versionsVersionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "version_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "version": {
+          "$ref": "#/definitions/versionsVersion"
+        },
+        "application_id": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "versionsVersionResponse": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "$ref": "#/definitions/versionsVersion"
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versionsVersion"
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

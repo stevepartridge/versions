@@ -1,0 +1,62 @@
+syntax = "proto3";
+package versions;
+
+import "google/api/annotations.proto";
+
+import "protos/application.proto";
+import "protos/download.proto";
+
+message VersionRequest {
+
+  int32  id = 1;
+
+  int32 version_id = 2;
+
+  Version version = 3;
+
+  string application_id = 4;
+
+  int32 limit = 5;
+
+  int32 offset = 6;
+
+}
+
+message VersionResponse {
+
+  Version version = 1;
+
+  repeated Version versions = 2;
+
+  int32 limit = 3;
+
+  int32 offset = 4;
+
+}
+
+message Version {
+
+  int32 id = 1;
+
+  string major = 2;
+
+  string minor = 3;
+
+  string revision = 4;
+
+  Application application = 5;
+
+  string application_id = 6;
+
+  string name = 7;
+
+  bool stable = 8;
+
+  string updated_at = 9;
+
+  string created_at = 10;
+
+  repeated Download downloads = 11;
+
+
+}

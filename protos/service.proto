@@ -1,0 +1,117 @@
+syntax = "proto3";
+package versions;
+
+import "google/api/annotations.proto";
+
+import "google/protobuf/empty.proto";
+import "protos/version.proto";
+import "protos/application.proto";
+// import "protos/download.proto";
+
+service Versions {
+
+  // Get service version and build info
+  rpc Info (ServiceInfoRequest) returns (ServiceInfoResponse) {
+    option (google.api.http) = {
+      get: "/info"
+    };
+  }
+
+// Versions
+
+  // Get version by ID
+  rpc GetVersion (VersionRequest) returns (VersionResponse) {
+    option (google.api.http) = {
+      get: "/v1/versions/{version_id}"
+    };
+  }
+
+  // Get applications versions
+  rpc GetVersions (VersionRequest) returns (VersionResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/{application_id}/versions"
+    };
+  }
+
+  // Get applications latest version
+  rpc GetLatestVersion (VersionRequest) returns (VersionResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/{application_id}/versions/latest"
+    };
+  }
+
+  // Create new version 
+  rpc CreateVersion (Version) returns (VersionResponse) {
+    option (google.api.http) = {
+      post: "/v1/versions"
+      body: "*"
+    };
+  }
+
+  // Update existing version
+  rpc UpdateVersion (VersionRequest) returns (VersionResponse) {
+    option (google.api.http) = {
+      put: "/v1/versions/{version_id}"
+      body: "*"
+    };
+  }
+
+  // Delete version
+  rpc DeleteVersion (VersionRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/versions/{version_id}"
+    };
+  }
+
+// Applications 
+
+  // Get applications list   
+  rpc GetApplications (ApplicationRequest) returns (ApplicationResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications"
+    };
+  }
+
+  // Get application details
+  rpc GetApplication (ApplicationRequest) returns (ApplicationResponse) {
+    option (google.api.http) = {
+      get: "/v1/applications/{application_id}"
+    };
+  }
+
+  // Create new application
+  rpc CreateApplication (Application) returns (ApplicationResponse) {
+    option (google.api.http) = {
+      post: "/v1/applications"
+      body: "*"
+    };
+  }
+
+  // Update existing application
+  rpc UpdateApplication (ApplicationRequest) returns (ApplicationResponse) {
+    option (google.api.http) = {
+      put: "/v1/applications/{application_id}"
+      body: "*"
+    };
+  }
+
+  // Delete application by ID
+  rpc DeleteApplication (ApplicationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/applications/{application_id}"
+    };
+  }
+
+
+}
+
+message ServiceInfoRequest {}
+message ServiceInfoResponse {
+
+  string version = 1;
+
+  string build = 2;
+
+  string built_at = 3;
+
+}

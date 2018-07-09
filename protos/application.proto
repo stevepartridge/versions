@@ -1,0 +1,44 @@
+syntax = "proto3";
+package versions;
+
+import "google/api/annotations.proto";
+
+
+message Application {
+
+  string id = 1; 
+
+  string name = 2; 
+
+  string updated_at = 3;
+
+  string created_at = 4;
+
+}
+
+
+message ApplicationRequest {
+
+  string  id = 1;
+
+  string application_id = 2;
+
+  Application application = 3;
+
+  int32 limit = 4;
+
+  int32 offset = 5;
+
+}
+
+message ApplicationResponse {
+
+  Application application = 1;
+
+  repeated Application applications = 2;
+
+  int32 limit = 3;
+
+  int32 offset = 4;
+
+}
