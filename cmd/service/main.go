@@ -1,34 +1,25 @@
 package main
 
 import (
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
-	"net"
-	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 
 	"github.com/stevepartridge/env"
+	_service "github.com/stevepartridge/service"
 	"github.com/stevepartridge/versions"
-	"github.com/stevepartridge/versions/insecure"
 	pb "github.com/stevepartridge/versions/protos"
 )
 
 var (
-	service = "versions"
-	version = "0.0.0"
-	builtAt = ""
-	build   = "0"
+	serviceName = "versions"
+	version     = "0.0.0"
+	builtAt     = ""
+	build       = "0"
 
 	defaultHost = "versions.local"
 	defaultPort = 8000
@@ -37,7 +28,7 @@ var (
 
 	enableInsecure = false
 
-	certPool *x509.CertPool
+	service *_service.Service
 
 	versionStore versions.Store
 )
@@ -84,91 +75,63 @@ func main() {
 		port = defaultPort
 	}
 
+	service, err = _service.New(host, port)
+	ifError(err)
+
 	serve()
 
 }
 
 func serve() {
 
+	var err error
+
 	enableInsecure = env.GetAsBool("ENABLE_INSECURE")
 
 	if enableInsecure {
 		log.Warn().Msg("Insecure is enabled.  Not recommended when in production.")
+		service.EnableInsecure()
 	}
 
-	certPool := x509.NewCertPool()
-	ok := certPool.AppendCertsFromPEM([]byte(insecure.RootCA))
-	if !ok {
-		panic("Invalid or bad certs")
+	rootCA := getRootCA()
+	if rootCA != nil {
+		err = service.AppendCertsFromPEM(rootCA)
+		ifError(err)
 	}
 
-	// Set up the gRPC service
-	grpcServer := newGrpcServer()
-	pb.RegisterVersionsServer(grpcServer, &versionService{})
+	cert, err := getCert()
+	ifError(err)
+	key, err := getKey()
+	ifError(err)
 
-	creds := credentials.NewTLS(&tls.Config{
-		ServerName:         host,
-		RootCAs:            certPool,
-		InsecureSkipVerify: enableInsecure,
-	})
+	err = service.AddKeyPair(cert, key)
+	ifError(err)
 
-	opts := []grpc.DialOption{
-		grpc.WithTransportCredentials(creds),
-	}
+	service.Grpc.AddInterceptors(
+		RequestInterceptor(),
+		TelemetryInterceptor(),
+	)
 
-	// Address for reverse proxy connection (http 1.x requests)
-	addr := fmt.Sprintf("%s:%d", host, port)
+	pb.RegisterVersionsServer(service.GrpcServer(), &versionService{})
 
-	// Setup gateway http/s fallback support for REST clients
-	gwMux := runtime.NewServeMux()
-	err := pb.RegisterVersionsHandlerFromEndpoint(context.Background(), gwMux, addr, opts)
+	err = service.EnableGatewayHandler(pb.RegisterVersionsHandlerFromEndpoint)
 	if err != nil {
 		fmt.Printf("serve: %v\n", err)
 		return
 	}
 
-	server := newServer(gwMux)
+	serveSwagger(service.Mux)
 
-	conn, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
-	if err != nil {
-		panic(err)
-	}
-
-	cert, err := getCertificate()
-	ifError(err)
-	tlsConfig := tls.Config{
-		Certificates:       []tls.Certificate{cert},
-		NextProtos:         []string{"h2"},
-		InsecureSkipVerify: enableInsecure,
-	}
-
-	tlsConfig.BuildNameToCertificate()
-
-	srv := &http.Server{
-		Addr:      strconv.Itoa(port),
-		Handler:   handlerFunc(grpcServer, server),
-		TLSConfig: &tlsConfig,
-	}
+	httpMiddleware()
 
 	log.Info().
-		Int("port", port).
-		Str("host", host).
+		Int("port", service.Port).
+		Str("host", service.Host).
 		Msg("Listening")
 
-	err = srv.Serve(tls.NewListener(conn, srv.TLSConfig))
-
+	err = service.Serve()
 	if err != nil {
 		log.Fatal().Err(err).Msg("Listen and Serve")
 	}
 
-}
-
-func handlerFunc(grpcServer *grpc.Server, httpHandler http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
-			grpcServer.ServeHTTP(w, r)
-		} else {
-			httpHandler.ServeHTTP(w, r)
-		}
-	})
 }

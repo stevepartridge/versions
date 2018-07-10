@@ -28,7 +28,7 @@ func serveSwagger(mux *http.ServeMux) {
 			w.Write(errorJSON(err))
 		}
 
-		swag.Info.Title = service
+		swag.Info.Title = serviceName
 		swag.Info.Version = version
 		swag.Schemes = []string{"https"}
 
