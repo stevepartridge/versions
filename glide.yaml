@@ -1,0 +1,46 @@
+package: github.com/stevepartridge/versions
+import:
+- package: github.com/elazarl/go-bindata-assetfs
+  version: ~1.0.0
+- package: github.com/go-openapi/spec
+- package: github.com/golang/protobuf
+  version: ~1.1.0
+  subpackages:
+  - proto
+  - ptypes/empty
+- package: github.com/grpc-ecosystem/grpc-gateway
+  version: ~1.4.1
+  subpackages:
+  - runtime
+  - utilities
+- package: github.com/mitchellh/go-homedir
+- package: github.com/rs/zerolog
+  version: ~1.8.0
+  subpackages:
+  - hlog
+  - log
+- package: github.com/spf13/cobra
+  version: ~0.0.3
+- package: github.com/stevepartridge/env
+  version: ~0.0.1
+- package: github.com/stevepartridge/go
+  version: ~0.0.1
+  subpackages:
+  - file
+- package: github.com/stevepartridge/service
+  version: ~0.0.1
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: google.golang.org/genproto
+  subpackages:
+  - googleapis/api/annotations
+- package: google.golang.org/grpc
+  version: ~1.13.0
+  subpackages:
+  - codes
+  - connectivity
+  - credentials
+  - grpclog
+  - metadata
+  - status
