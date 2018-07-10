@@ -1,5 +1,9 @@
 package versions
 
+import (
+	"time"
+)
+
 type Download struct {
 	Link     string `json:"link"`
 	Format   string `json:"format"`
