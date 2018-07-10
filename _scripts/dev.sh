@@ -24,9 +24,11 @@ printf "Swagger Docs..."
 ./_scripts/swagger.sh
 printf "done.\n"
 
-# if [[ "$1" == "deps" ]]; then
-#   ./_scripts/internal_deps.sh
-# fi
+if [[ "$1" == "deps" ]]; then
+  ./_scripts/internal_deps.sh
+fi
+
 
 echo "Building..."
 go run cmd/service/*.go $@
+# go run $(ls -1 cmd/service/*.go | grep -v _test.go) $@
