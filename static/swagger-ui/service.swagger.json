@@ -559,6 +559,320 @@
         ]
       }
     },
+    "/v1/downloads/{download_id}": {
+      "get": {
+        "summary": "Get download details",
+        "operationId": "GetDownload",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsDownloadResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "download_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.version_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.storage_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.format",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.protocol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.os",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.arch",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.filename",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.extension",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.total_downloads",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "version_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "delete": {
+        "summary": "Delete download by ID",
+        "operationId": "DeleteDownload",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "download_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.version_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.storage_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.format",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.protocol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.os",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.arch",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.filename",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.extension",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.total_downloads",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "version_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      },
+      "put": {
+        "summary": "Update existing download",
+        "operationId": "UpdateDownload",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsDownloadResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "download_id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionsDownloadRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
+    },
     "/v1/versions": {
       "post": {
         "summary": "Create new version",
@@ -881,6 +1195,148 @@
           "Versions"
         ]
       }
+    },
+    "/v1/versions/{version_id}/downloads": {
+      "get": {
+        "summary": "Get downloads list",
+        "operationId": "GetDownloads",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/versionsDownloadResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "version_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.version_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.storage_type",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.format",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.protocol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.os",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.arch",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.filename",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.extension",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.total_downloads",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "download.updated_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.created_at",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "download.data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "byte"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ]
+      }
     }
   },
   "definitions": {
@@ -953,7 +1409,15 @@
     "versionsDownload": {
       "type": "object",
       "properties": {
-        "link": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "version_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "storage_type": {
           "type": "string"
         },
         "format": {
@@ -967,6 +1431,79 @@
         },
         "arch": {
           "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string"
+        },
+        "total_downloads": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "versionsDownloadRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "download_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "download": {
+          "$ref": "#/definitions/versionsDownload"
+        },
+        "version_id": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "versionsDownloadResponse": {
+      "type": "object",
+      "properties": {
+        "download": {
+          "$ref": "#/definitions/versionsDownload"
+        },
+        "downloads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versionsDownload"
+          }
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -1018,12 +1555,6 @@
         },
         "created_at": {
           "type": "string"
-        },
-        "downloads": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/versionsDownload"
-          }
         }
       }
     },
