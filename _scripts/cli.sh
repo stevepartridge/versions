@@ -23,4 +23,5 @@ printf "done.\n"
 # fi
 
 echo "Building..."
-go run cmd/cli/*.go $@
+# go run cmd/cli/*.go $@
+go run $(ls -1 cmd/cli/*.go | grep -v _test.go) $@
