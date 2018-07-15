@@ -2,9 +2,9 @@ package main
 
 import (
 	"errors"
-	// "strings"
-	"runtime"
+	goruntime "runtime"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -26,9 +26,20 @@ var (
 	ErrApplicationInvalidApplicationId = errors.New("application.invalid_id")
 	ErrRequestMissingApplication       = errors.New("application.request.missing.application")
 	ErrRequestMissingApplicationId     = errors.New("application.request.missing.application_id")
+
+	ErrRequestMissingDownload    = errors.New("download.request.missing.download")
+	ErrRequestMissingDownloadId  = errors.New("download.missing.id")
+	ErrDownloadInvalidDownloadId = errors.New("download.invalid_id")
 )
 
 func handleError(err error) error {
+
+	code := statusFromError(err)
+
+	return status.Error(code, err.Error())
+}
+
+func statusFromError(err error) codes.Code {
 
 	code := codes.Unknown
 
@@ -39,7 +50,6 @@ func handleError(err error) error {
 		ErrRequestMissingApplication,
 		ErrRequestMissingApplicationId,
 
-		versions.ErrVersionNotFound,
 		versions.ErrVersionExists,
 		versions.ErrVersionIsNil,
 		versions.ErrVersionMissingOS,
@@ -54,19 +64,37 @@ func handleError(err error) error {
 
 		versions.ErrApplicationExists,
 		versions.ErrApplicationMissingId,
-		versions.ErrApplicationNotFound,
+
+		versions.ErrStorageInvalidType,
+		versions.ErrDownloadExists,
+		versions.ErrDownloadStorageTypeMissing,
+		versions.ErrDownloadDataIsNil,
+		versions.ErrDownloadFilenameMissing,
+		versions.ErrDownloadIdMissing,
+		versions.ErrDownloadVersionIdMissing,
 
 		ErrVersionInvalidVersionId:
 
 		code = codes.InvalidArgument
 
+	case versions.ErrVersionNotFound,
+		versions.ErrApplicationNotFound,
+		versions.ErrDownloadNotFound,
+		versions.ErrDownloadFileNotFound:
+
+		code = codes.NotFound
 	}
 
-	return status.Error(code, err.Error())
+	return code
+
+}
+
+func httpStatusFromError(err error) int {
+	return runtime.HTTPStatusFromCode(statusFromError(err))
 }
 
 func ifError(err error) {
-	_, file, line, _ := runtime.Caller(5)
+	_, file, line, _ := goruntime.Caller(5)
 	if err != nil {
 		log.Error().
 			Str("file", file).
