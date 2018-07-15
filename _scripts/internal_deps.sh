@@ -5,6 +5,9 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 CUR_DIR=$(pwd)
 
 PKGS=go,env,service
+if [ ! -z ${1+x} ]; then
+  PKGS=$1
+fi
 
 function cleanPath() {
   echo $( cd "$( dirname "$1" )" && pwd )
