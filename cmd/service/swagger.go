@@ -10,9 +10,9 @@ import (
 	"github.com/stevepartridge/versions/swagger"
 )
 
-func serveSwagger(mux *http.ServeMux) {
+func serveSwagger() {
 
-	mux.HandleFunc("/docs/swagger.json", func(w http.ResponseWriter, req *http.Request) {
+	service.Router.HandleFunc("/docs/swagger.json", func(w http.ResponseWriter, req *http.Request) {
 
 		data, err := swagger.Asset("static/swagger-ui/service.swagger.json")
 		if err != nil {
@@ -43,15 +43,26 @@ func serveSwagger(mux *http.ServeMux) {
 
 	mime.AddExtensionType(".svg", "image/svg+xml")
 
-	// Expose files in static/swagger-ui/ on <host>/swagger-ui
+	docsPath := "/docs"
+
 	fileServer := http.FileServer(&assetfs.AssetFS{
 		Asset:    swagger.Asset,
 		AssetDir: swagger.AssetDir,
 		Prefix:   "static/swagger-ui",
 	})
 
-	prefix := "/docs/"
-	mux.Handle(prefix, http.StripPrefix(prefix, fileServer))
+	fs := http.StripPrefix(docsPath, fileServer)
+
+	if docsPath != "/" && docsPath[len(docsPath)-1] != '/' {
+		service.Router.Get(docsPath, http.RedirectHandler(docsPath+"/", 301).ServeHTTP)
+		docsPath += "/"
+	}
+	docsPath += "*"
+
+	service.Router.Get(docsPath, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fs.ServeHTTP(w, r)
+	}))
+
 }
 
 func errorJSON(err error) []byte {
