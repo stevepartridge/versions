@@ -28,7 +28,8 @@ var (
 
 	enableInsecure = false
 
-	service *_service.Service
+	service     *_service.Service
+	grpcService *versionService
 
 	versionStore versions.Store
 )
@@ -63,6 +64,12 @@ func main() {
 	var err error
 
 	versionStore, err = versions.NewStore("")
+	ifError(err)
+
+	localStorage, err := versions.NewLocalStorage()
+	ifError(err)
+
+	err = versions.AddStorage(versions.StorageTypeLocal, localStorage)
 	ifError(err)
 
 	host = env.Get("HOST")
@@ -112,7 +119,9 @@ func serve() {
 		TelemetryInterceptor(),
 	)
 
-	pb.RegisterVersionsServer(service.GrpcServer(), &versionService{})
+	grpcService = &versionService{}
+
+	pb.RegisterVersionsServer(service.GrpcServer(), grpcService)
 
 	err = service.EnableGatewayHandler(pb.RegisterVersionsHandlerFromEndpoint)
 	if err != nil {
@@ -120,9 +129,11 @@ func serve() {
 		return
 	}
 
-	serveSwagger(service.Mux)
-
 	httpMiddleware()
+
+	serveSwagger()
+
+	handleFallbackDownloads()
 
 	log.Info().
 		Int("port", service.Port).
