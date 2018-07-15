@@ -12,13 +12,13 @@ import (
 func httpMiddleware() {
 
 	_log := log.With().
-		Str("server", "http").
+		Str("server", "http1").
 		Str("host", host).
 		Logger()
 
-	service.AddHttpHandler(hlog.NewHandler(_log))
+	service.AddHttpMiddlware(hlog.NewHandler(_log))
 
-	service.AddHttpHandler(hlog.AccessHandler(func(r *http.Request, status, size int, duration time.Duration) {
+	service.AddHttpMiddlware(hlog.AccessHandler(func(r *http.Request, status, size int, duration time.Duration) {
 		hlog.FromRequest(r).Info().
 			Str("method", r.Method).
 			Str("url", r.URL.String()).
@@ -28,9 +28,9 @@ func httpMiddleware() {
 			Msg("")
 	}))
 
-	service.AddHttpHandler(hlog.RemoteAddrHandler("ip"))
-	service.AddHttpHandler(hlog.UserAgentHandler("user_agent"))
-	service.AddHttpHandler(hlog.RefererHandler("referer"))
-	service.AddHttpHandler(hlog.RequestIDHandler("req_id", "Request-Id"))
+	service.AddHttpMiddlware(hlog.RemoteAddrHandler("ip"))
+	service.AddHttpMiddlware(hlog.UserAgentHandler("user_agent"))
+	service.AddHttpMiddlware(hlog.RefererHandler("referer"))
+	service.AddHttpMiddlware(hlog.RequestIDHandler("req_id", "Request-Id"))
 
 }
