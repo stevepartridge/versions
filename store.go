@@ -29,6 +29,14 @@ type Store interface {
 	DeleteApplication(id string) error
 	GetApplicationById(id string) (Application, error)
 	GetApplications(opts ...int) ([]Application, error)
+
+	DownloadExists(*Download) bool
+
+	CreateDownload(*Download) error
+	UpdateDownload(*Download) error
+	DeleteDownload(id int) error
+	GetDownloadById(id int) (Download, error)
+	GetDownloads(opts ...int) ([]Download, error)
 }
 
 func NewStore(storeType string) (Store, error) {

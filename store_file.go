@@ -326,6 +326,113 @@ func (s fileStore) GetApplications(opts ...int) ([]Application, error) {
 	return localDb.Applications, nil
 }
 
+func (s fileStore) DownloadExists(download *Download) bool {
+
+	for i := range localDb.Downloads {
+
+		if localDb.Downloads[i].Id == download.Id {
+
+			return true
+
+		}
+	}
+	return false
+}
+
+func (s fileStore) CreateDownload(download *Download) error {
+
+	if ok, err := download.Validate(); !ok {
+		return err
+	}
+
+	if s.DownloadExists(download) {
+		return ErrDownloadExists
+	}
+
+	if storages[download.StorageType] == nil {
+		return ErrStorageInvalidType
+	}
+
+	download.Id = localDb.getNextDownloadId()
+
+	download.CreatedAt = time.Now().UTC()
+	download.UpdatedAt = time.Now().UTC()
+
+	err := storages[download.StorageType].Save(download.VersionId, download)
+	if err != nil {
+		return err
+	}
+
+	localDb.Downloads = append(localDb.Downloads, *download)
+
+	return localDb.save()
+
+}
+
+func (s fileStore) GetDownloadById(id int) (Download, error) {
+
+	for i := range localDb.Downloads {
+
+		if localDb.Downloads[i].Id == id {
+			return localDb.Downloads[i], nil
+		}
+	}
+
+	return Download{}, ErrDownloadNotFound
+}
+
+func (s fileStore) UpdateDownload(download *Download) error {
+
+	if ok, err := download.Validate(); !ok {
+		return err
+	}
+
+	if !s.DownloadExists(download) {
+		return ErrDownloadNotFound
+	}
+
+	download.UpdatedAt = time.Now().UTC()
+
+	localDb.Downloads = append(localDb.Downloads, *download)
+
+	return localDb.save()
+
+}
+
+func (s fileStore) DeleteDownload(id int) error {
+
+	for i := range localDb.Downloads {
+
+		if localDb.Downloads[i].Id == id {
+
+			copy(localDb.Downloads[i:], localDb.Downloads[i+1:])
+			localDb.Downloads[len(localDb.Downloads)-1] = Download{}
+			localDb.Downloads = localDb.Downloads[:len(localDb.Downloads)-1]
+
+			localDb.save()
+
+			return nil
+		}
+	}
+
+	return ErrDownloadNotFound
+}
+
+func (s fileStore) GetDownloads(opts ...int) ([]Download, error) {
+
+	limit := 0
+
+	if len(opts) > 0 {
+		limit = opts[0]
+	}
+
+	if limit > 0 {
+		return localDb.Downloads[:limit], nil
+	}
+
+	return localDb.Downloads, nil
+}
+
 func (db *fileDB) getNextId() int {
 
 	id := 1
@@ -335,6 +442,22 @@ func (db *fileDB) getNextId() int {
 		if localDb.Versions[i].Id >= id {
 
 			id = localDb.Versions[i].Id + 1
+		}
+	}
+
+	return id
+
+}
+
+func (db *fileDB) getNextDownloadId() int {
+
+	id := 1
+
+	for i := range localDb.Downloads {
+
+		if localDb.Downloads[i].Id >= id {
+
+			id = localDb.Downloads[i].Id + 1
 		}
 	}
 
