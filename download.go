@@ -1,6 +1,7 @@
 package versions
 
 import (
+	"net/http"
 	"time"
 )
 
@@ -8,6 +9,7 @@ type Download struct {
 	Id          int    `json:"id"`
 	VersionId   int    `json:"version_id"`
 	StorageType string `json:"storage_type"`
+	ContentType string `json:"content_type"`
 	Filename    string `json:"filename"`
 	Ext         string `json:"ext"`
 	Format      string `json:"format"`
@@ -38,6 +40,10 @@ func (d *Download) Validate() (bool, error) {
 
 	if d.Data == nil {
 		return false, ErrDownloadDataIsNil
+	}
+
+	if d.ContentType == "" {
+		d.ContentType = http.DetectContentType(d.Data)
 	}
 
 	if d.SHA1 == "" {

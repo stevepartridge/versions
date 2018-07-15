@@ -24,13 +24,15 @@ message Download {
 
   string extension = 9;  
 
-  int32 total_downloads = 10;
+  string content_type = 10;
 
-  string updated_at = 11;
+  int32 total_downloads = 11;
 
-  string created_at = 12;
+  string updated_at = 12;
 
-  bytes data = 13; 
+  string created_at = 13;
+
+  bytes data = 14; 
 
 }
 

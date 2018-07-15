@@ -16,6 +16,7 @@ func (d *Download) ToProto() *pb.Download {
 		Arch:           d.Arch,
 		Filename:       d.Filename,
 		Extension:      d.Ext,
+		ContentType:    d.ContentType,
 		TotalDownloads: int32(d.Downloads),
 	}
 
@@ -40,6 +41,7 @@ func DownloadFromProto(proto *pb.Download) Download {
 		Arch:        proto.Arch,
 		Filename:    proto.Filename,
 		Ext:         proto.Extension,
+		ContentType: proto.ContentType,
 	}
 
 	if proto.Data != nil {
