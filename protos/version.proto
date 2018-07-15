@@ -56,7 +56,5 @@ message Version {
 
   string created_at = 10;
 
-  repeated Download downloads = 11;
-
 
 }

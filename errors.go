@@ -26,6 +26,18 @@ var (
 	// ErrApplicationExists    = errors.New("versions.application.exists")
 
 	// ErrApplicationIdContainsSpace = errors.New("versions.application.invalid_id.contains")
+
+	ErrStorageInvalidType = errors.New("versions.storage.invalid_type")
+
+	ErrDownloadExists             = errors.New("versions.download.exists")
+	ErrDownloadNotFound           = errors.New("versions.download.not_found")
+	ErrDownloadStorageTypeMissing = errors.New("versions.download.storage_type.missing")
+
+	ErrDownloadDataIsNil        = errors.New("versions.download.data.is_nil")
+	ErrDownloadFilenameMissing  = errors.New("versions.download.filename.missing")
+	ErrDownloadIdMissing        = errors.New("versions.download.id.missing")
+	ErrDownloadVersionIdMissing = errors.New("versions.download.verision_id.missing")
+	ErrDownloadFileNotFound     = errors.New("versions.download.file.not_found")
 )
 
 func ErrApplicationIdInvalidCharacter(char string) error {

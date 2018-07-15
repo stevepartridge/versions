@@ -6,14 +6,60 @@ import "google/api/annotations.proto";
 
 message Download {
 
-  string link = 1; 
+  int32 id = 1;
 
-  string format = 2; 
+  int32 version_id = 2;
 
-  string protocol = 3;
+  string storage_type = 3; 
 
-  string os = 4;
+  string format = 4; 
 
-  string arch = 5;  
+  string protocol = 5;
+
+  string os = 6;
+
+  string arch = 7;  
+
+  string filename = 8;  
+
+  string extension = 9;  
+
+  int32 total_downloads = 10;
+
+  string updated_at = 11;
+
+  string created_at = 12;
+
+  bytes data = 13; 
+
+}
+
+message DownloadRequest {
+
+  int32  id = 1;
+
+  int32 download_id = 2;
+
+  Download download = 3;
+
+  string version_id = 4;
+
+  bytes data = 5;
+
+  int32 limit = 6;
+
+  int32 offset = 7;
+
+}
+
+message DownloadResponse {
+
+  Download download = 1;
+
+  repeated Download downloads = 2;
+
+  int32 limit = 3;
+
+  int32 offset = 4;
 
 }

@@ -4,9 +4,9 @@ package versions;
 import "google/api/annotations.proto";
 
 import "google/protobuf/empty.proto";
+import "protos/download.proto";
 import "protos/version.proto";
 import "protos/application.proto";
-// import "protos/download.proto";
 
 service Versions {
 
@@ -99,6 +99,48 @@ service Versions {
   rpc DeleteApplication (ApplicationRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/v1/applications/{application_id}"
+    };
+  }
+
+// Downloads 
+
+  // Get downloads list   
+  rpc GetDownloads (DownloadRequest) returns (DownloadResponse) {
+    option (google.api.http) = {
+      get: "/v1/versions/{version_id}/downloads"
+    };
+  }
+
+  // Get download details
+  rpc GetDownload (DownloadRequest) returns (DownloadResponse) {
+    option (google.api.http) = {
+      get: "/v1/downloads/{download_id}"
+    };
+  }
+
+  // Create new download
+  rpc CreateDownload (Download) returns (DownloadResponse) {
+  }
+  // HTTP Fallback is handled in the service file download.go
+  //    handleFallbackCreateDownload
+  //
+  // option (google.api.http) = {
+  //   post: "/v1/versions/{version_id}/downloads"
+  //   body: "*"
+  // };
+
+  // Update existing download
+  rpc UpdateDownload (DownloadRequest) returns (DownloadResponse) {
+    option (google.api.http) = {
+      put: "/v1/downloads/{download_id}"
+      body: "*"
+    };
+  }
+
+  // Delete download by ID
+  rpc DeleteDownload (DownloadRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/downloads/{download_id}"
     };
   }
 

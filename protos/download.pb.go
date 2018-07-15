@@ -20,11 +20,19 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type Download struct {
-	Link                 string   `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	Format               string   `protobuf:"bytes,2,opt,name=format,proto3" json:"format,omitempty"`
-	Protocol             string   `protobuf:"bytes,3,opt,name=protocol,proto3" json:"protocol,omitempty"`
-	Os                   string   `protobuf:"bytes,4,opt,name=os,proto3" json:"os,omitempty"`
-	Arch                 string   `protobuf:"bytes,5,opt,name=arch,proto3" json:"arch,omitempty"`
+	Id                   int32    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	VersionId            int32    `protobuf:"varint,2,opt,name=version_id,json=versionId,proto3" json:"version_id,omitempty"`
+	StorageType          string   `protobuf:"bytes,3,opt,name=storage_type,json=storageType,proto3" json:"storage_type,omitempty"`
+	Format               string   `protobuf:"bytes,4,opt,name=format,proto3" json:"format,omitempty"`
+	Protocol             string   `protobuf:"bytes,5,opt,name=protocol,proto3" json:"protocol,omitempty"`
+	Os                   string   `protobuf:"bytes,6,opt,name=os,proto3" json:"os,omitempty"`
+	Arch                 string   `protobuf:"bytes,7,opt,name=arch,proto3" json:"arch,omitempty"`
+	Filename             string   `protobuf:"bytes,8,opt,name=filename,proto3" json:"filename,omitempty"`
+	Extension            string   `protobuf:"bytes,9,opt,name=extension,proto3" json:"extension,omitempty"`
+	TotalDownloads       int32    `protobuf:"varint,10,opt,name=total_downloads,json=totalDownloads,proto3" json:"total_downloads,omitempty"`
+	UpdatedAt            string   `protobuf:"bytes,11,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	CreatedAt            string   `protobuf:"bytes,12,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Data                 []byte   `protobuf:"bytes,13,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -34,7 +42,7 @@ func (m *Download) Reset()         { *m = Download{} }
 func (m *Download) String() string { return proto.CompactTextString(m) }
 func (*Download) ProtoMessage()    {}
 func (*Download) Descriptor() ([]byte, []int) {
-	return fileDescriptor_download_202d55d5e2353b18, []int{0}
+	return fileDescriptor_download_248a1c83d8604e03, []int{0}
 }
 func (m *Download) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Download.Unmarshal(m, b)
@@ -54,9 +62,23 @@ func (m *Download) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Download proto.InternalMessageInfo
 
-func (m *Download) GetLink() string {
+func (m *Download) GetId() int32 {
 	if m != nil {
-		return m.Link
+		return m.Id
+	}
+	return 0
+}
+
+func (m *Download) GetVersionId() int32 {
+	if m != nil {
+		return m.VersionId
+	}
+	return 0
+}
+
+func (m *Download) GetStorageType() string {
+	if m != nil {
+		return m.StorageType
 	}
 	return ""
 }
@@ -89,22 +111,230 @@ func (m *Download) GetArch() string {
 	return ""
 }
 
-func init() {
-	proto.RegisterType((*Download)(nil), "versions.Download")
+func (m *Download) GetFilename() string {
+	if m != nil {
+		return m.Filename
+	}
+	return ""
 }
 
-func init() { proto.RegisterFile("protos/download.proto", fileDescriptor_download_202d55d5e2353b18) }
+func (m *Download) GetExtension() string {
+	if m != nil {
+		return m.Extension
+	}
+	return ""
+}
 
-var fileDescriptor_download_202d55d5e2353b18 = []byte{
-	// 160 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x3c, 0x8c, 0x31, 0x0e, 0x82, 0x40,
-	0x10, 0x45, 0x03, 0x22, 0xc1, 0x29, 0x2c, 0x26, 0xd1, 0x6c, 0x88, 0x85, 0xb1, 0xb2, 0x92, 0xc2,
-	0x2b, 0x78, 0x02, 0x6f, 0x30, 0x02, 0x22, 0x71, 0xdd, 0x4f, 0x76, 0x37, 0x78, 0x7d, 0xc3, 0x40,
-	0xec, 0xfe, 0x7f, 0xf3, 0xe7, 0xd1, 0x6e, 0xf0, 0x88, 0x08, 0x55, 0x83, 0xaf, 0xb3, 0x90, 0xe6,
-	0xa2, 0x9d, 0x8b, 0xb1, 0xf5, 0xa1, 0x87, 0x0b, 0xe5, 0xa1, 0x03, 0x3a, 0xdb, 0x56, 0x32, 0xf4,
-	0x95, 0x38, 0x87, 0x28, 0x71, 0xe2, 0xf3, 0xee, 0x34, 0x52, 0x71, 0x5b, 0x3e, 0x99, 0x29, 0xb3,
-	0xbd, 0x7b, 0x9b, 0xe4, 0x98, 0x9c, 0x37, 0x77, 0xcd, 0xbc, 0xa7, 0xfc, 0x09, 0xff, 0x91, 0x68,
-	0x52, 0xa5, 0x4b, 0xe3, 0x92, 0x0a, 0x15, 0xd4, 0xb0, 0x66, 0xa5, 0x97, 0x7f, 0xe7, 0x2d, 0xa5,
-	0x08, 0x26, 0x53, 0x9a, 0x22, 0x4c, 0x5e, 0xf1, 0xf5, 0xcb, 0xac, 0x67, 0xef, 0x94, 0x1f, 0xb9,
-	0xae, 0xaf, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x3c, 0xef, 0xd4, 0x72, 0xbf, 0x00, 0x00, 0x00,
+func (m *Download) GetTotalDownloads() int32 {
+	if m != nil {
+		return m.TotalDownloads
+	}
+	return 0
+}
+
+func (m *Download) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
+func (m *Download) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *Download) GetData() []byte {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type DownloadRequest struct {
+	Id                   int32     `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	DownloadId           int32     `protobuf:"varint,2,opt,name=download_id,json=downloadId,proto3" json:"download_id,omitempty"`
+	Download             *Download `protobuf:"bytes,3,opt,name=download,proto3" json:"download,omitempty"`
+	VersionId            string    `protobuf:"bytes,4,opt,name=version_id,json=versionId,proto3" json:"version_id,omitempty"`
+	Data                 []byte    `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	Limit                int32     `protobuf:"varint,6,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset               int32     `protobuf:"varint,7,opt,name=offset,proto3" json:"offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *DownloadRequest) Reset()         { *m = DownloadRequest{} }
+func (m *DownloadRequest) String() string { return proto.CompactTextString(m) }
+func (*DownloadRequest) ProtoMessage()    {}
+func (*DownloadRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_download_248a1c83d8604e03, []int{1}
+}
+func (m *DownloadRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadRequest.Unmarshal(m, b)
+}
+func (m *DownloadRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadRequest.Marshal(b, m, deterministic)
+}
+func (dst *DownloadRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadRequest.Merge(dst, src)
+}
+func (m *DownloadRequest) XXX_Size() int {
+	return xxx_messageInfo_DownloadRequest.Size(m)
+}
+func (m *DownloadRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DownloadRequest proto.InternalMessageInfo
+
+func (m *DownloadRequest) GetId() int32 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *DownloadRequest) GetDownloadId() int32 {
+	if m != nil {
+		return m.DownloadId
+	}
+	return 0
+}
+
+func (m *DownloadRequest) GetDownload() *Download {
+	if m != nil {
+		return m.Download
+	}
+	return nil
+}
+
+func (m *DownloadRequest) GetVersionId() string {
+	if m != nil {
+		return m.VersionId
+	}
+	return ""
+}
+
+func (m *DownloadRequest) GetData() []byte {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+func (m *DownloadRequest) GetLimit() int32 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+func (m *DownloadRequest) GetOffset() int32 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+type DownloadResponse struct {
+	Download             *Download   `protobuf:"bytes,1,opt,name=download,proto3" json:"download,omitempty"`
+	Downloads            []*Download `protobuf:"bytes,2,rep,name=downloads,proto3" json:"downloads,omitempty"`
+	Limit                int32       `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset               int32       `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *DownloadResponse) Reset()         { *m = DownloadResponse{} }
+func (m *DownloadResponse) String() string { return proto.CompactTextString(m) }
+func (*DownloadResponse) ProtoMessage()    {}
+func (*DownloadResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_download_248a1c83d8604e03, []int{2}
+}
+func (m *DownloadResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadResponse.Unmarshal(m, b)
+}
+func (m *DownloadResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadResponse.Marshal(b, m, deterministic)
+}
+func (dst *DownloadResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadResponse.Merge(dst, src)
+}
+func (m *DownloadResponse) XXX_Size() int {
+	return xxx_messageInfo_DownloadResponse.Size(m)
+}
+func (m *DownloadResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DownloadResponse proto.InternalMessageInfo
+
+func (m *DownloadResponse) GetDownload() *Download {
+	if m != nil {
+		return m.Download
+	}
+	return nil
+}
+
+func (m *DownloadResponse) GetDownloads() []*Download {
+	if m != nil {
+		return m.Downloads
+	}
+	return nil
+}
+
+func (m *DownloadResponse) GetLimit() int32 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+func (m *DownloadResponse) GetOffset() int32 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+func init() {
+	proto.RegisterType((*Download)(nil), "versions.Download")
+	proto.RegisterType((*DownloadRequest)(nil), "versions.DownloadRequest")
+	proto.RegisterType((*DownloadResponse)(nil), "versions.DownloadResponse")
+}
+
+func init() { proto.RegisterFile("protos/download.proto", fileDescriptor_download_248a1c83d8604e03) }
+
+var fileDescriptor_download_248a1c83d8604e03 = []byte{
+	// 408 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xcd, 0x8e, 0xd3, 0x30,
+	0x10, 0x56, 0xd2, 0xa6, 0x24, 0xd3, 0xb2, 0x8b, 0x2c, 0x40, 0xd6, 0x6a, 0x11, 0xa5, 0x17, 0x7a,
+	0x4a, 0x11, 0x3c, 0xc1, 0x4a, 0x5c, 0xf6, 0x1a, 0x71, 0x8f, 0x4c, 0xed, 0x14, 0x4b, 0x69, 0x26,
+	0xc4, 0xb3, 0xc0, 0xbe, 0x0e, 0xaf, 0xc4, 0x53, 0xf0, 0x16, 0xc8, 0x13, 0xbb, 0x29, 0x7f, 0xd2,
+	0xde, 0xfc, 0x7d, 0xdf, 0xcc, 0xe4, 0x9b, 0xf9, 0x02, 0xcf, 0xfa, 0x01, 0x09, 0xdd, 0x4e, 0xe3,
+	0xd7, 0xae, 0x45, 0xa5, 0x4b, 0xc6, 0x22, 0xff, 0x62, 0x06, 0x67, 0xb1, 0x73, 0x57, 0xd7, 0x07,
+	0xc4, 0x43, 0x6b, 0x76, 0xaa, 0xb7, 0x3b, 0xd5, 0x75, 0x48, 0x8a, 0x3c, 0x3f, 0xd6, 0x6d, 0x7e,
+	0xa6, 0x90, 0xbf, 0x0f, 0xad, 0xe2, 0x02, 0x52, 0xab, 0x65, 0xb2, 0x4e, 0xb6, 0x59, 0x95, 0x5a,
+	0x2d, 0x5e, 0x00, 0x84, 0x31, 0xb5, 0xd5, 0x32, 0x65, 0xbe, 0x08, 0xcc, 0xad, 0x16, 0xaf, 0x60,
+	0xe5, 0x08, 0x07, 0x75, 0x30, 0x35, 0xdd, 0xf7, 0x46, 0xce, 0xd6, 0xc9, 0xb6, 0xa8, 0x96, 0x81,
+	0xfb, 0x70, 0xdf, 0x1b, 0xf1, 0x1c, 0x16, 0x0d, 0x0e, 0x47, 0x45, 0x72, 0xce, 0x62, 0x40, 0xe2,
+	0x0a, 0x72, 0xfe, 0xfe, 0x1e, 0x5b, 0x99, 0xb1, 0x72, 0xc2, 0xde, 0x05, 0x3a, 0xb9, 0x60, 0x36,
+	0x45, 0x27, 0x04, 0xcc, 0xd5, 0xb0, 0xff, 0x24, 0x1f, 0x31, 0xc3, 0x6f, 0xdf, 0xdf, 0xd8, 0xd6,
+	0x74, 0xea, 0x68, 0x64, 0x3e, 0xf6, 0x47, 0x2c, 0xae, 0xa1, 0x30, 0xdf, 0xc8, 0x74, 0xde, 0xa5,
+	0x2c, 0x58, 0x9c, 0x08, 0xf1, 0x1a, 0x2e, 0x09, 0x49, 0xb5, 0x75, 0x3c, 0x98, 0x93, 0xc0, 0x8b,
+	0x5d, 0x30, 0x1d, 0x6f, 0xe1, 0xfc, 0xf2, 0x77, 0xbd, 0x56, 0x64, 0x74, 0xad, 0x48, 0x2e, 0xc7,
+	0x39, 0x81, 0xb9, 0x21, 0x2f, 0xef, 0x07, 0x13, 0xe5, 0xd5, 0x28, 0x07, 0xe6, 0x86, 0xbc, 0x69,
+	0xad, 0x48, 0xc9, 0xc7, 0xeb, 0x64, 0xbb, 0xaa, 0xf8, 0xbd, 0xf9, 0x91, 0xc0, 0x65, 0x9c, 0x5f,
+	0x99, 0xcf, 0x77, 0xc6, 0xd1, 0x5f, 0x27, 0x7f, 0x09, 0xcb, 0x68, 0x6c, 0xba, 0x39, 0x44, 0xea,
+	0x56, 0x8b, 0x12, 0xf2, 0x88, 0xf8, 0xe0, 0xcb, 0xb7, 0xa2, 0x8c, 0x59, 0x97, 0xa7, 0xe9, 0xa7,
+	0x9a, 0x3f, 0x32, 0x1c, 0x53, 0x38, 0xcb, 0x30, 0xfa, 0xcc, 0x26, 0x9f, 0xe2, 0x29, 0x64, 0xad,
+	0x3d, 0x5a, 0xe2, 0x0c, 0xb2, 0x6a, 0x04, 0x3e, 0x4a, 0x6c, 0x1a, 0x67, 0x88, 0x83, 0xc8, 0xaa,
+	0x80, 0x36, 0xdf, 0x13, 0x78, 0x32, 0x6d, 0xe5, 0x7a, 0xec, 0x9c, 0xf9, 0xcd, 0x65, 0xf2, 0x00,
+	0x97, 0x6f, 0xa0, 0x98, 0xf2, 0x48, 0xd7, 0xb3, 0xff, 0x34, 0x4c, 0x45, 0x93, 0xc9, 0xd9, 0xbf,
+	0x4d, 0xce, 0xcf, 0x4d, 0x7e, 0x5c, 0xf0, 0xdf, 0xf5, 0xee, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0xf0, 0xe6, 0x22, 0xeb, 0x2e, 0x03, 0x00, 0x00,
 }
