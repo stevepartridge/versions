@@ -3,10 +3,11 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	// "fmt"
 
 	"github.com/go-chi/chi"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -164,7 +165,17 @@ func handleGetDownloadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.ServeContent(w, r, download.Filename, download.UpdatedAt, bytes.NewReader(file))
+	reader := bytes.NewReader(file)
+
+	contentLength := strconv.Itoa(len(file))
+
+	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", download.Filename))
+	w.Header().Set("Content-Type", download.ContentType)
+	w.Header().Set("Content-Length", contentLength)
+
+	io.Copy(w, reader)
+
+	// http.ServeContent(w, r, download.Filename, download.UpdatedAt, bytes.NewReader(reader))
 
 }
 
