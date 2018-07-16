@@ -1,10 +1,10 @@
 package main
 
 import (
+	"crypto/x509"
 	"fmt"
 	"os"
 
-	"crypto/x509"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 
@@ -55,6 +55,7 @@ func main() {
 
 	versionCommands(rootCmd)
 	applicationCommands(rootCmd)
+	downloadCommands(rootCmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
