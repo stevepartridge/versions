@@ -149,6 +149,24 @@ func handleCreateDownload(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
+func (v *versionService) GetDownloadFile(c context.Context, req *pb.Download) (*pb.Download, error) {
+
+	download, err := versionStore.GetDownloadById(int(req.Id))
+	if err != nil {
+		return nil, handleError(err)
+	}
+
+	resp := download.ToProto()
+
+	resp.Data, err = download.GetFile()
+	if err != nil {
+		return nil, nil
+	}
+
+	return resp, nil
+
+}
+
 func handleGetDownloadFile(w http.ResponseWriter, r *http.Request) {
 
 	downloadId, _ := strconv.Atoi(chi.URLParam(r, "download_id"))

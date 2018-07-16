@@ -119,15 +119,25 @@ service Versions {
   }
 
   // Create new download
-  rpc CreateDownload (Download) returns (DownloadResponse) {
-  }
   // HTTP Fallback is handled in the service file download.go
-  //    handleFallbackCreateDownload
+  //    handleFallbackDownloads
   //
   // option (google.api.http) = {
   //   post: "/v1/versions/{version_id}/downloads"
   //   body: "*"
   // };
+  rpc CreateDownload (Download) returns (DownloadResponse) {
+  }
+
+  // Get download file
+  // HTTP Fallback is handled in the service file download.go
+  //    handleFallbackDownloads
+  //
+  // option (google.api.http) = {
+  //   get: "/v1/downloads/{download_id}/file"
+  // };
+  rpc GetDownloadFile (Download) returns (Download) {
+  }
 
   // Update existing download
   rpc UpdateDownload (DownloadRequest) returns (DownloadResponse) {
