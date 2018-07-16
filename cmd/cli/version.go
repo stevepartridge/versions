@@ -11,7 +11,7 @@ import (
 
 func versionCommands(cmd *cobra.Command) {
 
-	cmd.PersistentFlags().IntP("id", "i", 0, "Version ID to get")
+	cmd.PersistentFlags().IntP("id", "i", 0, "ID to get")
 
 	// Create
 	createCmd := &cobra.Command{
