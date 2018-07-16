@@ -10,6 +10,12 @@ var (
 	verTest3 = "1.2.3.4"
 	verTest4 = "1."
 	verTest5 = "1"
+
+	sha1TestBytes = []byte("1234")
+	sha1TestHash  = "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"
+
+	sha256TestBytes = []byte("1234")
+	sha256TestHash  = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"
 )
 
 func Test_Unit_Parse_Valid(t *testing.T) {
@@ -74,5 +80,23 @@ func Test_Unit_Parse_EmptyMinor(t *testing.T) {
 			minor,
 			revision,
 		)
+	}
+}
+
+func Test_Unit_Sha1ToString(t *testing.T) {
+
+	hash := Sha1ToString(sha1TestBytes)
+
+	if hash != sha1TestHash {
+		t.Errorf("Expected %s but saw %s", sha1TestHash, hash)
+	}
+}
+
+func Test_Unit_Sha256ToString(t *testing.T) {
+
+	hash := Sha256ToString(sha256TestBytes)
+
+	if hash != sha256TestHash {
+		t.Errorf("Expected %s but saw %s", sha256TestHash, hash)
 	}
 }

@@ -752,3 +752,50 @@ func Test_Unit_Store_File_GetApplications_Success(t *testing.T) {
 	}
 
 }
+
+func Test_Unit_CreateDownload_Success(t *testing.T) {
+
+	makeNewFileStore(t)
+
+	storage, err := NewLocalStorage("testing-storage")
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+	err = AddStorage(StorageTypeLocal, storage)
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+	_, err = GetStorage(StorageTypeLocal)
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+	app := testApplication1
+
+	err = store.CreateApplication(&app)
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+	ver := testVersion1
+	ver.Id = 0
+	ver.ApplicationId = app.Id
+
+	err = store.Create(&ver)
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+	dl := testDownload1
+	dl.StorageType = StorageTypeLocal
+	dl.VersionId = ver.Id
+	dl.Data = []byte("1234")
+
+	err = store.CreateDownload(&dl)
+	if err != nil {
+		t.Errorf("Didn't expect error, but saw %s", err.Error())
+	}
+
+}

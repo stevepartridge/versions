@@ -21,10 +21,9 @@ func Parse(ver string) (string, string, string) {
 		return parts[0], parts[1], parts[2]
 	} else if len(parts) > 3 {
 		return parts[0], parts[1], strings.Join(parts[2:], "-")
-	} else {
-		return "", "", ""
 	}
 
+	return "", "", ""
 }
 
 func Sha1ToString(in []byte) string {
