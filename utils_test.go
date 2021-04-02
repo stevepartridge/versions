@@ -22,7 +22,7 @@ func Test_Unit_Parse_Valid(t *testing.T) {
 
 	major, minor, revision := Parse(verTest1)
 	if major != "1" || minor != "2" || revision != "3" {
-		t.Errorf("Expected %s but saw %d.%d.%d",
+		t.Errorf("Expected %s but saw %s.%s.%s",
 			verTest1,
 			major,
 			minor,
@@ -35,7 +35,7 @@ func Test_Unit_Parse_Empty(t *testing.T) {
 
 	major, minor, revision := Parse("")
 	if major != "" && minor != "" && revision != "" {
-		t.Errorf("Expected %s but saw %d.%d.%d",
+		t.Errorf("Expected %s but saw %s.%s.%s",
 			verTest1,
 			major,
 			minor,
@@ -48,7 +48,7 @@ func Test_Unit_Parse_TwoComponents(t *testing.T) {
 
 	major, minor, revision := Parse(verTest2)
 	if major != "1" && minor != "2" && revision != "" {
-		t.Errorf("Expected %s but saw %d.%d.%d",
+		t.Errorf("Expected %s but saw %s.%s.%s",
 			verTest2,
 			major,
 			minor,
@@ -61,7 +61,7 @@ func Test_Unit_Parse_TooManyComponents(t *testing.T) {
 
 	major, minor, revision := Parse(verTest3)
 	if major != "1" && minor != "2" && revision != "3.4" {
-		t.Errorf("Expected %s but saw %d.%d.%d",
+		t.Errorf("Expected %s but saw %s.%s.%s",
 			verTest3,
 			major,
 			minor,
@@ -74,7 +74,7 @@ func Test_Unit_Parse_EmptyMinor(t *testing.T) {
 
 	major, minor, revision := Parse(verTest5)
 	if major != "1" && minor != "" && revision != "" {
-		t.Errorf("Expected %s but saw %d.%d.%d",
+		t.Errorf("Expected %s but saw %s.%s.%s",
 			verTest5,
 			major,
 			minor,

@@ -319,7 +319,7 @@ func Test_Unit_Store_File_GetByApplication_Success(t *testing.T) {
 	}
 
 	if len(vers) != 1 {
-		t.Error("Found %d version(s) but should have been 1", len(vers))
+		t.Errorf("Found %d version(s) but should have been 1", len(vers))
 	}
 
 }

@@ -22,7 +22,7 @@ func Test_Unit_ApplicationToProtoMatch(t *testing.T) {
 	proto := testApplication1.ToProto()
 
 	if proto.Id != testApplicationProto1.Id {
-		t.Errorf("Proto id should have matched: %d", testApplicationProto1.Id)
+		t.Errorf("Proto id should have matched: %s", testApplicationProto1.Id)
 	}
 
 	if proto.Name != testApplicationProto1.Name {
@@ -48,7 +48,7 @@ func Test_Unit_ApplicationFromProtoMatch(t *testing.T) {
 
 	app := ApplicationFromProto(testApplicationProto1)
 	if app.Id != testApplicationProto1.Id {
-		t.Errorf("Application id should have matched: %d", testApplicationProto1.Id)
+		t.Errorf("Application id should have matched: %s", testApplicationProto1.Id)
 	}
 
 	if app.Name != testApplicationProto1.Name {
@@ -80,7 +80,7 @@ func Test_Unit_ApplicationsToProtoMatch(t *testing.T) {
 
 	for i := range apps {
 		if apps[i].Id != protos[0].Id {
-			t.Errorf("Proto index 0 id should equal %d", apps[i].Id)
+			t.Errorf("Proto index 0 id should equal %s", apps[i].Id)
 		}
 	}
 }
